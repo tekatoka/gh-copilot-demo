@@ -17,7 +17,6 @@ namespace albums_api.Controllers
         public IActionResult Get()
         {
             var albums = Album.GetAll();
-
             return Ok(albums);
         }
 
@@ -26,6 +25,29 @@ namespace albums_api.Controllers
         public IActionResult Get(int id)
         {
             return Ok();
+        }
+
+        // function that retrieves albums and sorts them by title, artist or price
+        // GET albums/sorted?sortBy=title
+        [HttpGet("sorted")]
+        public IActionResult GetSorted(string sortBy)
+        {
+            var albums = Album.GetAlbums();
+            switch (sortBy.ToLower())
+            {
+                case "title":
+                    albums = albums.OrderBy(a => a.Title).ToList();
+                    break;
+                case "artist":
+                    albums = albums.OrderBy(a => a.Artist).ToList();
+                    break;
+                case "price":
+                    albums = albums.OrderBy(a => a.Price).ToList();
+                    break;
+                default:
+                    return BadRequest("Invalid sort parameter. Use 'title', 'artist', or 'price'.");
+            }
+            return Ok(albums);
         }
 
     }
