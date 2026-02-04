@@ -1,7 +1,7 @@
 <template>
   <div :class="styles.app">
     <header :class="styles.header">
-      <h1 :class="styles.title">🎵 Album Collection</h1>
+      <h1 :class="styles.title">💿 Album Collection</h1>
       <p :class="styles.subtitle">Discover amazing music albums</p>
       <nav :class="styles.navMenu">
         <RouterLink to="/" :class="styles.navLink">Albums</RouterLink>

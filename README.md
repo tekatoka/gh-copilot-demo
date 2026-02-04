@@ -18,11 +18,26 @@ The solution is composed of two services: the .net album API and the NodeJS albu
 
 ### Album API (`album-api`)
 
-The [`album-api`](./album-api) is an .NET 8 minimal Web API that manage a list of Albums in memory.
+The [`album-api`](./album-api) is a .NET 8 minimal Web API that manages a list of Albums persisted in a JSON file (`albums.json`). It provides complete CRUD (Create, Read, Update, Delete) operations for album management.
+
+**Key Features:**
+- Full CRUD endpoints for album management
+- JSON file-based persistence
+- Thread-safe operations with locking
+- Search by year functionality
+- Sorting by title, artist, or price
+- Swagger/OpenAPI documentation
 
 ### Album Viewer (`album-viewer`)
 
-The [`album-viewer`](./album-viewer) is a modern Vue.js 3 application built with TypeScript through which the albums retrieved by the API are surfaced. The application uses the Vue 3 Composition API with full TypeScript support for enhanced developer experience and type safety. In order to display the repository of albums, the album viewer contacts the backend album API.
+The [`album-viewer`](./album-viewer) is a modern Vue.js 3 application built with TypeScript through which the albums retrieved by the API are surfaced. The application uses the Vue 3 Composition API with full TypeScript support for enhanced developer experience and type safety. It includes a complete UI for CRUD operations with modals and confirmation dialogs.
+
+**Key Features:**
+- Display albums in a responsive grid layout
+- Add new albums with a modal form
+- Edit existing albums
+- Delete albums with confirmation dialog (closes on Escape key)
+- CSS Modules for component-scoped styling
 
 ## Getting Started
 

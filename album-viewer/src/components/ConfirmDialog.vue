@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import styles from './ConfirmDialog.module.css'
 
 interface Props {
@@ -60,4 +60,18 @@ const handleConfirm = async () => {
     loading.value = false
   }
 }
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    handleCancel()
+  }
+}
+
+watch(() => props.show, (newVal) => {
+  if (newVal) {
+    document.addEventListener('keydown', handleKeyDown)
+  } else {
+    document.removeEventListener('keydown', handleKeyDown)
+  }
+})
 </script>
