@@ -4,15 +4,13 @@ using System.Net;
 using System.Text.Json;
 using System.Text;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace albums_api.Controllers
 {
     [Route("albums")]
     [ApiController]
     public class AlbumController : ControllerBase
     {
-        // GET: api/album
+        // GET: api/albums - Get all albums
         [HttpGet]
         public IActionResult Get()
         {
@@ -20,15 +18,31 @@ namespace albums_api.Controllers
             return Ok(albums);
         }
 
-        // GET api/<AlbumController>/5
+        // GET: api/albums/5 - Get album by id
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok();
+            var album = Album.GetById(id);
+            if (album == null)
+            {
+                return NotFound(new { message = $"Album with id {id} not found" });
+            }
+            return Ok(album);
         }
 
-        // function that retrieves albums and sorts them by title, artist or price
-        // GET albums/sorted?sortBy=title
+        // GET: api/albums/search/year?year=2020 - Search albums by year
+        [HttpGet("search/year")]
+        public IActionResult SearchByYear(int year)
+        {
+            var albums = Album.GetByYear(year);
+            if (!albums.Any())
+            {
+                return NotFound(new { message = $"No albums found for year {year}" });
+            }
+            return Ok(albums);
+        }
+
+        // GET: api/albums/sorted?sortBy=title - Get sorted albums
         [HttpGet("sorted")]
         public IActionResult GetSorted(string sortBy)
         {
@@ -50,5 +64,70 @@ namespace albums_api.Controllers
             return Ok(albums);
         }
 
+        // POST: api/albums - Create a new album
+        [HttpPost]
+        public IActionResult Create([FromBody] Album album)
+        {
+            if (album == null)
+            {
+                return BadRequest("Album data is required");
+            }
+
+            if (string.IsNullOrWhiteSpace(album.Title) || string.IsNullOrWhiteSpace(album.Artist))
+            {
+                return BadRequest("Title and Artist are required fields");
+            }
+
+            if (album.Price < 0)
+            {
+                return BadRequest("Price cannot be negative");
+            }
+
+            var createdAlbum = Album.Add(album);
+            return CreatedAtAction(nameof(Get), new { id = createdAlbum.Id }, createdAlbum);
+        }
+
+        // PUT: api/albums/5 - Update an album
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Album album)
+        {
+            if (album == null)
+            {
+                return BadRequest("Album data is required");
+            }
+
+            if (string.IsNullOrWhiteSpace(album.Title) || string.IsNullOrWhiteSpace(album.Artist))
+            {
+                return BadRequest("Title and Artist are required fields");
+            }
+
+            if (album.Price < 0)
+            {
+                return BadRequest("Price cannot be negative");
+            }
+
+            var existingAlbum = Album.GetById(id);
+            if (existingAlbum == null)
+            {
+                return NotFound(new { message = $"Album with id {id} not found" });
+            }
+
+            var updatedAlbum = Album.Update(id, album);
+            return Ok(updatedAlbum);
+        }
+
+        // DELETE: api/albums/5 - Delete an album
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var album = Album.GetById(id);
+            if (album == null)
+            {
+                return NotFound(new { message = $"Album with id {id} not found" });
+            }
+
+            Album.Delete(id);
+            return NoContent();
+        }
     }
 }

@@ -141,6 +141,26 @@
   transform: translateY(-2px);
 }
 
+.btnEdit {
+  background: #667eea;
+  color: white;
+}
+
+.btnEdit:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+.btnDelete {
+  background: #e53e3e;
+  color: white;
+}
+
+.btnDelete:hover {
+  background: #c53030;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .albumInfo {
     padding: 1rem;

@@ -22,8 +22,8 @@
     </div>
     
     <div :class="styles.albumActions">
-      <button :class="[styles.btn, styles.btnPrimary]">Add to Cart</button>
-      <button :class="[styles.btn, styles.btnSecondary]">Preview</button>
+      <button :class="[styles.btn, styles.btnEdit]" @click="handleEdit">✏️ Edit</button>
+      <button :class="[styles.btn, styles.btnDelete]" @click="handleDelete">🗑️ Delete</button>
     </div>
   </div>
 </template>
@@ -36,10 +36,24 @@ interface Props {
   album: Album
 }
 
-defineProps<Props>()
+interface Emits {
+  (e: 'edit', album: Album): void
+  (e: 'delete', album: Album): void
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 
 const handleImageError = (event: Event): void => {
   const target = event.target as HTMLImageElement
   target.src = 'https://via.placeholder.com/300x300/667eea/white?text=Album+Cover'
+}
+
+const handleEdit = () => {
+  emit('edit', props.album)
+}
+
+const handleDelete = () => {
+  emit('delete', props.album)
 }
 </script>

@@ -12,7 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
-builder.Services.AddCors(options => {
+builder.Services.AddCors(options =>
+{
     options.AddDefaultPolicy(builder =>
     {
         builder.AllowAnyOrigin();
@@ -35,7 +36,7 @@ app.UseCors();
 
 // app.Urls.Add("${ASPNETCORE_URLS}");
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -48,4 +49,12 @@ app.MapGet("/", async context =>
 
 app.MapControllers();
 
-app.Run();
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Fatal error: {ex}");
+    throw;
+}
