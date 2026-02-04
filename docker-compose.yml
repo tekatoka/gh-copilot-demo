@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  album-api:
+    build:
+      context: ./albums-api
+      dockerfile: Dockerfile
+    container_name: album-api
+    ports:
+      - "3000:3000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:3000
+    networks:
+      - albums-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/swagger/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  album-viewer:
+    build:
+      context: ./album-viewer
+      dockerfile: Dockerfile
+    container_name: album-viewer
+    ports:
+      - "8080:80"
+    depends_on:
+      - album-api
+    networks:
+      - albums-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  albums-network:
+    driver: bridge

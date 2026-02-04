@@ -3,6 +3,7 @@
 // data from the sales of album are loaded in from an external source and are in json format
 import * as d3 from "d3";
 
+// Function to generate a bar plot of album sales by month
 export function generateAlbumSalesPlot(
   selector: string,
   data: { month: string; sales: number }[],

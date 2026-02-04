@@ -3,11 +3,17 @@ using System.Data;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace UnsecureApp.Controllers
+
+namespace albums_api.Controllers
 {
+    // Example controller demonstrating various vulnerabilities
     public class MyController
     {
-
+        /// <summary>
+        /// Reads a file from the given user input path.
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
         public string ReadFile(string userInput)
         {
             using (FileStream fs = File.Open(userInput, FileMode.Open))
@@ -35,7 +41,7 @@ namespace UnsecureApp.Controllers
                 };
 
                 SqlDataReader reader = sqlCommand.ExecuteReader();
-                return reader.GetInt32(0); 
+                return reader.GetInt32(0);
             }
         }
 
@@ -50,7 +56,7 @@ namespace UnsecureApp.Controllers
             {
                 Console.WriteLine(e.ToString());
             }
-        
+
         }
 
         private string connectionString = "";

@@ -1,0 +1,38 @@
+# Docker-specific
+.dockerignore
+Dockerfile
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Development
+.vscode/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Tests
+**/*.test.*
+**/*.spec.*
+
+# Config files (if needed for build, remove from here)
+# vitest.config.ts

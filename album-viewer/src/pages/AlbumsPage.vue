@@ -1,3 +1,4 @@
+<!-- AlbumsPage.vue -->
 <template>
   <div v-if="loading" class="loading">
     <div class="spinner"></div>

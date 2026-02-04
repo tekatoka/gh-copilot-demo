@@ -1,0 +1,45 @@
+# Docker-specific
+.dockerignore
+
+# .NET
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Development
+.vscode/
+.vs/
+*.user
+*.suo
+
+# Environment
+.env
+.env.local
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+
+# Tests
+**/tests/
+**/*.test.*
+**/*.spec.*
