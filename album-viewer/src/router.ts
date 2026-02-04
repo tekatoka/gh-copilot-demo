@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Layout from "./Layout.vue";
+import Layout from "./components/layout/Layout.vue";
 import AlbumsPage from "./pages/AlbumsPage.vue";
-import Graph from "./Graph.vue";
+import Graph from "./components/Graph.vue";
 
 const routes = [
   {
